@@ -148,8 +148,13 @@ abstract class HttpServiceMethod<ResponseT, ReturnT> extends ServiceMethod<Retur
 
   @Override
   final @Nullable ReturnT invoke(Object[] args) {
-    Call<ResponseT> call = new OkHttpCall<>(requestFactory, args, callFactory, responseConverter);
-    return adapt(call, args);
+    if (CustomPlugin.INSTANCE.getEnableCustom()){
+      CustomPlugin.INSTANCE.post(requestFactory);
+      return null;
+    }else {
+      Call<ResponseT> call = new OkHttpCall<>(requestFactory, args, callFactory, responseConverter);
+      return adapt(call, args);
+    }
   }
 
   protected abstract @Nullable ReturnT adapt(Call<ResponseT> call, Object[] args);

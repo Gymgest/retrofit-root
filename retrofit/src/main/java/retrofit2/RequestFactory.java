@@ -25,6 +25,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,7 @@ import retrofit2.http.QueryName;
 import retrofit2.http.Tag;
 import retrofit2.http.Url;
 
-final class RequestFactory {
+public final class RequestFactory {
   static RequestFactory parseAnnotations(Retrofit retrofit, Method method) {
     return new Builder(retrofit, method).build();
   }
@@ -91,6 +92,70 @@ final class RequestFactory {
     isMultipart = builder.isMultipart;
     parameterHandlers = builder.parameterHandlers;
     isKotlinSuspendFunction = builder.isKotlinSuspendFunction;
+  }
+
+  public Method getMethod() {
+    return method;
+  }
+
+  public HttpUrl getBaseUrl() {
+    return baseUrl;
+  }
+
+  public String getHttpMethod() {
+    return httpMethod;
+  }
+
+  @Nullable
+  public String getRelativeUrl() {
+    return relativeUrl;
+  }
+
+  @Nullable
+  public Headers getHeaders() {
+    return headers;
+  }
+
+  @Nullable
+  public MediaType getContentType() {
+    return contentType;
+  }
+
+  public boolean isHasBody() {
+    return hasBody;
+  }
+
+  public boolean isFormEncoded() {
+    return isFormEncoded;
+  }
+
+  public boolean isMultipart() {
+    return isMultipart;
+  }
+
+  public ParameterHandler<?>[] getParameterHandlers() {
+    return parameterHandlers;
+  }
+
+  public boolean isKotlinSuspendFunction() {
+    return isKotlinSuspendFunction;
+  }
+
+  @Override
+  public String toString() {
+    return "RequestFactory{" +
+      "method=" + method +
+      ", baseUrl=" + baseUrl +
+      ", httpMethod='" + httpMethod + '\'' +
+      ", relativeUrl='" + relativeUrl + '\'' +
+      ", headers=" + headers +
+      ", contentType=" + contentType +
+      ", hasBody=" + hasBody +
+      ", isFormEncoded=" + isFormEncoded +
+      ", isMultipart=" + isMultipart +
+      ", parameterHandlers=" + Arrays.toString(parameterHandlers) +
+      ", isKotlinSuspendFunction=" + isKotlinSuspendFunction +
+      '}';
   }
 
   okhttp3.Request create(Object[] args) throws IOException {

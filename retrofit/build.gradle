@@ -11,12 +11,12 @@ dependencies {
 
   compileOnly libs.animalSnifferAnnotations
   compileOnly libs.findBugsAnnotations
-
-  testImplementation projects.retrofit.testHelpers
-  testImplementation libs.junit
-  testImplementation libs.assertj
-  testImplementation libs.guava
-  testImplementation libs.mockwebserver
+//
+//  testImplementation projects.retrofit.testHelpers
+//  testImplementation libs.junit
+//  testImplementation libs.assertj
+//  testImplementation libs.guava
+//  testImplementation libs.mockwebserver
 }
 
 jar {
